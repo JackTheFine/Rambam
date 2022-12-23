@@ -14,6 +14,5 @@ module.exports = {
 const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
 
 return interaction.reply(duration)
-  
 }
 }

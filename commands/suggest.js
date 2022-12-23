@@ -1,6 +1,5 @@
-const { MessageEmbed } = require('discord.js');
 const Discord = module.require("discord.js");
-const { Snake } = require("discord-gamecord")
+const { MessageEmbed }  = require("discord.js")
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 

@@ -6,7 +6,10 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
+/*
+CHAT:
+kskksk
+*/
 for (const file of commandFiles) {
   const command = require(`./commands/${file}`);
   client.commands.set(command.data.name, command);
@@ -14,7 +17,8 @@ for (const file of commandFiles) {
 //hi
 
 client.once('ready', () => {
-  console.log('Ready!');
+  console.log(`Ready! (logged into ${client.user.tag})`);
+  client.user.setActivity("rambam burn down", {type: "WATCHING"})
 });
 
 client.on('interactionCreate', async interaction => {
