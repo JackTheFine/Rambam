@@ -32,6 +32,6 @@ module.exports = {
         cancelMessage: 'Looks like they refused to have a game of Connect4. \:(',
         timeEndMessage: 'Since the opponent didnt answer, i dropped the game!',
       }).startGame()
-              
+      console.log(`${interaction.user.tag} ran connect4 with ${interaction.options.getUser('target')}`)     
   },
 };

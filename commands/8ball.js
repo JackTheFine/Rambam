@@ -30,6 +30,7 @@ async execute(interaction){
       "Outlook not so good...",
       "Very doubtful.",
     ];
+    console.log(`${interaction.user.tag} ran 8ball`)
     return interaction.reply(
       fortunes[Math.floor(Math.random() * fortunes.length)]
 )

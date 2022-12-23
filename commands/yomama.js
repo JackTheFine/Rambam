@@ -12,6 +12,7 @@ module.exports = {
 			.setRequired(true)),
 	async execute(interaction) {
     const ymm = interaction.options.getString('yomama')
+	console.log(`${interaction.user.tag} ran yomama`)
     return interaction.reply(`Yo mama ${ymm}`);
   },
 };

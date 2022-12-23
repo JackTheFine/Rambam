@@ -13,7 +13,7 @@ module.exports = {
 		
 	async execute(interaction) {
     const fg = interaction.options.getString("words")
-    
+    console.log(`${interaction.user.tag} ran clap`)
     return interaction.reply(fg.replace(/ /g, " 👏 "));
     
   },

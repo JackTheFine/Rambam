@@ -66,6 +66,7 @@ module.exports = {
             interaction.channel.send({ embeds: [exampleEmbed] });
             
             }, ms(time));
+            console.log(`${interaction.user.tag} ran reminder and its done`)
     return
         }
   }

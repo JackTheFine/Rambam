@@ -26,6 +26,6 @@ module.exports = {
       .setImage(images[Math.floor(Math.random() * images.length)])
       .setColor("RANDOM");
     interaction.reply({ embeds: [embed] });
-
+    console.log(`${interaction.user.tag} ran fake nitro`)
   },
 };

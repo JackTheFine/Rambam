@@ -17,7 +17,7 @@ module.exports = {
       .setColor('#0099ff')
       .setTitle('Suggestion')
       .setURL('')
-      .setAuthor({ name: `<@${interaction.user.id}>`, iconURL: `${interaction.user.displayAvatarURL({ format: 'png' })}` })
+      .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ format: 'png' })}` })
       .setThumbnail(`${interaction.user.displayAvatarURL({ format: 'png' })}`)
       .setDescription(`${tte}`)
       .setTimestamp()
@@ -25,6 +25,7 @@ module.exports = {
     interaction.guild.channels.cache.get('1011835704206184519').send({ embeds: [exampleEmbed] }).then(exampleEmbed => {
       exampleEmbed.react("✅").then(exampleEmbed.react("❌"));
     })
+    console.log(`${interaction.user.tag} ran suggestions`)
     return interaction.reply('Sent to suggestions.')
 
   }

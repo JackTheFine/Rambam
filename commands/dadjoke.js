@@ -10,6 +10,7 @@ module.exports = {
 	async execute(interaction) {
      // To get a random dad joke
 giveMeAJoke.getRandomDadJoke (function(joke) {
+	console.log(`${interaction.user.tag} ran dadjoke`)
   return interaction.reply({ content: `${joke}`})
 });
        

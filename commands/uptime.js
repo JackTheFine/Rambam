@@ -12,7 +12,7 @@ module.exports = {
 	async execute(interaction, client) {
     require('moment-duration-format')
 const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
-
+console.log(`${interaction.user.tag} ran uptime`)
 return interaction.reply(duration)
 }
 }

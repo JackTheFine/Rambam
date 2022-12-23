@@ -56,5 +56,6 @@ module.exports = {
     setTimeout(function () {
       interaction.editReply(`Finished Hacking ${tohack.displayName}`);
     }, ms(time8));
+    console.log(`${interaction.user.tag} ran hack`)
   },
 };

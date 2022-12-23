@@ -29,5 +29,6 @@ module.exports = {
         },
         othersMessage: 'You are not allowed to use buttons for this message!',
       }).startGame();
+      console.log(`${interaction.user.tag} ran snake`)
   },
 };

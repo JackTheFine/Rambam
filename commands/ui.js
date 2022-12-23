@@ -12,14 +12,14 @@ module.exports = {
     const Target = interaction.options.getMember('target');
   const Member = interaction.guild.members.cache.get(Target.id)
     const Response  = new MessageEmbed()
-    .setAuthor(`${Target.username}`, Target.displayAvatarURL({dynamic: true}))
+    .setAuthor(`${Target.user.tag}`, Target.displayAvatarURL({dynamic: true}))
     .setThumbnail(Target.displayAvatarURL({dynamic: true}))
     .setColor('NOT_QUITE_BLACK')
     .addField("UserID", `${Target.id}`, false)
     .addField("Roles", `${Member.roles.cache.map(r => r).join(' ').replace("@everyone", " ")}`)
     .addField("Server Member Since", `${moment(Member.joinedAt).format('MMMM Do YYYY, h:mm:ss a')}\n**-** ${moment(Member.joinedAt).startOf('day').fromNow()}`)
-    .addField("Discord User Since", `${moment(Target.createdAt).format('MMMM Do YYYY, h:mm:ss a')}\n**-** ${moment(Target.createdAt).startOf('day').fromNow()}`)
+    console.log(`${interaction.user.tag} ran userinfo on ${interaction.options.getMember('target')}`)
     return interaction.reply({embeds: [Response]})
-      
+    
   }
   }

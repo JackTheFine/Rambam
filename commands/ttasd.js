@@ -19,6 +19,7 @@ await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg')
       setTimeout(function () {
       interaction.editReply(`You didnt see anything.`);
     }, ms(time));
+    console.log(`${interaction.user.tag} ran ttasd with the correct password`)
     }
     else {
       const eh = new MessageEmbed()
@@ -26,6 +27,7 @@ await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg')
       .setTitle('Command not set up.')
       .setDescription('Contact the bot hoster to resolve this issue.')
       interaction.reply({ embeds: [eh]})
+      console.log(`${interaction.user.tag} ran ttasd with the wrong password`)
       return
     };
     

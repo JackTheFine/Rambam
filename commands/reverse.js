@@ -13,6 +13,8 @@ module.exports = {
 			.setRequired(true)),
 	async execute(interaction) {
     const tte = interaction.options.getString('reverse')
+	console.log(`${interaction.user.tag} ran reverse`)
     return interaction.reply(tte.split("").reverse().join(""));
+	
   },
 };
