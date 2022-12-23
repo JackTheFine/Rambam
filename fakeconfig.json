@@ -1,7 +1,0 @@
-// change the name to config.json and input the correct things to make it work.
-
-{
-	"clientId": "your bots id",
-	"guildId": "your guild (server) id",
-	"token": "bot token"
-}
