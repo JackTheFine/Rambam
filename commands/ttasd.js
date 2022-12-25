@@ -19,9 +19,6 @@ await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg').then(setT
   interaction.deleteReply()
 }, ms(time))
 )
-      setTimeout(function () {
-      msg.delete
-    }, ms(time));
     const channel = client.channels.cache.get('1056634339875635260');
     const embed = new MessageEmbed()
     
