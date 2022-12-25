@@ -6,7 +6,7 @@ module.exports = {
   .setName('8ball')
   .setDescription('gives a fortune')
   .addStringOption(option => option.setName('question').setDescription('The question you want to ask').setRequired(true)),
-async execute(interaction){
+async execute(interaction, client){
 
     var fortunes = [
       "Yes.",
@@ -30,7 +30,14 @@ async execute(interaction){
       "Outlook not so good...",
       "Very doubtful.",
     ];
-    console.log(`${interaction.user.tag} ran 8ball`)
+    const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('Ran 8Ball')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
     return interaction.reply(
       fortunes[Math.floor(Math.random() * fortunes.length)]
 )

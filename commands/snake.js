@@ -9,7 +9,7 @@ module.exports = {
 		.setName('snake')
 		.setDescription('snake game'),
 		
-	async execute(interaction) {
+	async execute(interaction, client) {
           new Snake({
         message: interaction,
         slash_command: true,
@@ -29,6 +29,13 @@ module.exports = {
         },
         othersMessage: 'You are not allowed to use buttons for this message!',
       }).startGame();
-      console.log(`${interaction.user.tag} ran snake`)
+      const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('Ran snake')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
   },
 };

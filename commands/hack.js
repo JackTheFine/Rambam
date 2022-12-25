@@ -8,7 +8,7 @@ module.exports = {
 		.setName('hack')
 		.setDescription('hacks the person you mentioned')
 		.addUserOption(option => option.setName('target').setDescription('The member to hack').setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction, client) {
     const tohack = interaction.options.getMember('target');
     let msg = await interaction.reply(`Hacking ${tohack.displayName}....`);
 
@@ -56,6 +56,13 @@ module.exports = {
     setTimeout(function () {
       interaction.editReply(`Finished Hacking ${tohack.displayName}`);
     }, ms(time8));
-    console.log(`${interaction.user.tag} ran hack`)
+    const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle(`Hacked ${tohack.displayName}`)
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
   },
 };

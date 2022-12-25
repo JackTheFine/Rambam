@@ -15,7 +15,7 @@ module.exports = {
 		option.setName('reminder')
 			.setDescription('reminder')
 			.setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction, client) {
   
   const reminder = interaction.options.getString('reminder')
   const time = interaction.options.getString('time')
@@ -25,7 +25,7 @@ module.exports = {
                 .setColor('#E0082F')
                 .setTitle('Reminder set.')
                 .setURL('')
-                .setAuthor({ name: 'Flight Deck Bot', iconURL: '', url: '' })
+                .setAuthor({ name: 'Rambam Bot', iconURL: '', url: '' })
                 .setDescription(``)
                 .setThumbnail('')
                 .addFields(
@@ -37,7 +37,7 @@ module.exports = {
                 //.addField('Inline field title', 'Some value here', true)
                 .setImage('')
                 .setTimestamp()
-                .setFooter({ text: 'Flight Deck Bot', iconURL: '' });
+                .setFooter({ text: 'Rambam Bot', iconURL: '' });
                 
                 interaction.reply({ embeds: [exampleEmbed1] });
 
@@ -48,7 +48,7 @@ module.exports = {
                 .setColor('#088BE0')
                 .setTitle('Reminder!')
                 .setURL('')
-                .setAuthor({ name: 'Flight Deck Bot', iconURL: '', url: '' })
+                .setAuthor({ name: 'FRambam Bot', iconURL: '', url: '' })
                 .setDescription('Reminder for ' + `<@${interaction.user.id}>`)
                 .setThumbnail('')
                 .addFields(
@@ -60,13 +60,20 @@ module.exports = {
                 //.addField('Inline field title', 'Some value here', true)
                 .setImage('')
                 .setTimestamp()
-                .setFooter({ text: 'Flight Deck Bot', iconURL: '' });
+                .setFooter({ text: 'Rambam Bot', iconURL: '' });
                 
             
             interaction.channel.send({ embeds: [exampleEmbed] });
             
             }, ms(time));
-            console.log(`${interaction.user.tag} ran reminder and its done`)
+            const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('ran remind ')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
     return
         }
   }

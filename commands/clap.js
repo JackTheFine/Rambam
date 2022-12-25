@@ -11,9 +11,16 @@ module.exports = {
     .setDescription('The words to make clappy')
     .setRequired(true)),
 		
-	async execute(interaction) {
+	async execute(interaction, client) {
     const fg = interaction.options.getString("words")
-    console.log(`${interaction.user.tag} ran clap`)
+    const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('Ran clap')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
     return interaction.reply(fg.replace(/ /g, " 👏 "));
     
   },

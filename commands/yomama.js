@@ -10,9 +10,16 @@ module.exports = {
 		option.setName('yomama')
 			.setDescription('thing to yomamaify')
 			.setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction, client) {
     const ymm = interaction.options.getString('yomama')
-	console.log(`${interaction.user.tag} ran yomama`)
+	const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('Ran yomama')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
     return interaction.reply(`Yo mama ${ymm}`);
   },
 };

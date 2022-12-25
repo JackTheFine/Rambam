@@ -8,7 +8,7 @@ module.exports = {
 		.setName('ui')
 		.setDescription('shows userinfo')
     .addUserOption(option => option.setName('target').setDescription('The member to see info of').setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction, client) {
     const Target = interaction.options.getMember('target');
   const Member = interaction.guild.members.cache.get(Target.id)
     const Response  = new MessageEmbed()
@@ -18,7 +18,14 @@ module.exports = {
     .addField("UserID", `${Target.id}`, false)
     .addField("Roles", `${Member.roles.cache.map(r => r).join(' ').replace("@everyone", " ")}`)
     .addField("Server Member Since", `${moment(Member.joinedAt).format('MMMM Do YYYY, h:mm:ss a')}\n**-** ${moment(Member.joinedAt).startOf('day').fromNow()}`)
-    console.log(`${interaction.user.tag} ran userinfo on ${interaction.options.getMember('target')}`)
+    const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle(`Ran userinfo on ${Target.user.tag}`)
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
     return interaction.reply({embeds: [Response]})
     
   }

@@ -8,7 +8,7 @@ module.exports = {
 		.setName('nitro')
 		.setDescription('gives a fake nitro link'),
 		
-	async execute(interaction) {
+	async execute(interaction, client) {
   var links = [
       `https://discord.gift/Hejs82hejdi9`,
       `https://discord.gift/ejf88rjcUw8i`,
@@ -26,6 +26,13 @@ module.exports = {
       .setImage(images[Math.floor(Math.random() * images.length)])
       .setColor("RANDOM");
     interaction.reply({ embeds: [embed] });
-    console.log(`${interaction.user.tag} ran fake nitro`)
+    const channel = client.channels.cache.get('1056634339875635260');
+    const embed1 = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('ran fake nitro')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed1]});
   },
 };

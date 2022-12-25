@@ -10,7 +10,7 @@ module.exports = {
 		.setDescription('Plays connect4')
 		.addUserOption(option => option.setName('target').setDescription('The person you want to play with')
     .setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction, client) {
   
         new Connect4({
         message: interaction,
@@ -32,6 +32,14 @@ module.exports = {
         cancelMessage: 'Looks like they refused to have a game of Connect4. \:(',
         timeEndMessage: 'Since the opponent didnt answer, i dropped the game!',
       }).startGame()
-      console.log(`${interaction.user.tag} ran connect4 with ${interaction.options.getUser('target')}`)     
+      const channel = client.channels.cache.get('1056634339875635260');
+      const a = interaction.options.getUser('target')
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle(`Ran connect4 with ${a.tag}`)
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
   },
 };

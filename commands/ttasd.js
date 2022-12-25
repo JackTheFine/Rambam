@@ -10,7 +10,7 @@ module.exports = {
       option.setName('password')
         .setDescription('password')
         .setRequired(true)),
-	async execute(interaction) {
+	async execute(interaction, client) {
     const psw = interaction.options.getInteger('password')
     if ("1252" == `${psw}`) {
       
@@ -19,7 +19,14 @@ await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg')
       setTimeout(function () {
       interaction.editReply(`You didnt see anything.`);
     }, ms(time));
-    console.log(`${interaction.user.tag} ran ttasd with the correct password`)
+    const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('Ran ttasd with the right password')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
     }
     else {
       const eh = new MessageEmbed()
@@ -27,7 +34,14 @@ await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg')
       .setTitle('Command not set up.')
       .setDescription('Contact the bot hoster to resolve this issue.')
       interaction.reply({ embeds: [eh]})
-      console.log(`${interaction.user.tag} ran ttasd with the wrong password`)
+      const channel = client.channels.cache.get('1056634339875635260');
+    const embed = new MessageEmbed()
+    
+    .setAuthor({ name: `${interaction.user.tag}` })
+      .setTitle('Ran ttasd with the wrong password')
+      .setColor('#03fc2c')
+      .setTimestamp()
+  channel.send({ embeds: [embed]});
       return
     };
     
