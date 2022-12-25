@@ -15,9 +15,12 @@ module.exports = {
     if ("1252" == `${psw}`) {
       
       let time = "5s";
-await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg')
+await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg').then(setTimeout(function () {
+  interaction.deleteReply()
+}, ms(time))
+)
       setTimeout(function () {
-      interaction.editReply(`You didnt see anything.`);
+      msg.delete
     }, ms(time));
     const channel = client.channels.cache.get('1056634339875635260');
     const embed = new MessageEmbed()
