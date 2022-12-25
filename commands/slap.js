@@ -17,7 +17,7 @@ module.exports = {
           member.displayName +
           " is now in the hospital! :hospital:")
       .setColor("RANDOM");
-      console.log(`${interaction.user.tag} ran slap and slapped ${interaction.options.getMember('target')}`)
+      console.log(`${interaction.user.tag} ran slap and slapped ${member.displayName}`)
       
     return interaction.reply({ embeds: [embed] });
   },
