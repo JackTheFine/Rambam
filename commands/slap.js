@@ -11,7 +11,7 @@ module.exports = {
 	async execute(interaction) {
     let member = interaction.options.getMember('target');
   const embed = new Discord.MessageEmbed()
-    .setTitle(`<@${interaction.user.id}>` +" slapped :raised_back_of_hand: " +
+    .setTitle(`${interaction.user.tag}` +" slapped :raised_back_of_hand: " +
           member.displayName +
           ", " +
           member.displayName +

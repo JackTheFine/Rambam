@@ -17,7 +17,7 @@ module.exports = {
       .setColor('#0099ff')
       .setTitle('Suggestion')
       .setURL('')
-      .setAuthor({ name: `${interaction.user.tag}`, iconURL: `${interaction.user.displayAvatarURL({ format: 'png' })}` })
+      .setAuthor({ name: `${interaction.user.displayName}`, iconURL: `${interaction.user.displayAvatarURL({ format: 'png' })}` })
       .setThumbnail(`${interaction.user.displayAvatarURL({ format: 'png' })}`)
       .setDescription(`${tte}`)
       .setTimestamp()
