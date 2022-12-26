@@ -4,7 +4,7 @@ const { token } = require('./config.json');
 const { MessageEmbed } = require('Discord.js')
 
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS,Intents.FLAGS.GUILD_VOICE_STATES] });
 
 client.commands = new Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -38,7 +38,7 @@ client.on('interactionCreate', async interaction => {
   if (!command) return;
 
   try {
-    await command.execute(interaction, client);
+    await command.execute(interaction, client, interaction.options._hoistedOptions);
   } catch (error) {
     console.error(error);
     return interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
