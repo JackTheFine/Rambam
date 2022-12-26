@@ -1,5 +1,5 @@
 const discordaudio = require("discordaudio");
-const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
+const { ComponentType, MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const ytdl = require("ytdl-core");
 
@@ -64,10 +64,10 @@ module.exports = {
     		subcommand.setName("resume")
 			    .setDescription("Resume a paused song")
 	    )
-	    .addSubcommand(subcommand =>
+	    /*.addSubcommand(subcommand =>
     		subcommand.setName("skip")
 			    .setDescription("Advance to the next song in the queue")
-	    )
+	    )*/
 	    .addSubcommand(subcommand =>
     		subcommand.setName("stop")
 			    .setDescription("Cease. Desisit. Halt.")
@@ -101,43 +101,45 @@ module.exports = {
 	    ),
 		
 	async execute(interaction, client, options) {
+        await interaction.deferReply({ ephemeral: true });
+
         const vc = interaction.member.voice.channel;
 
-        if (!vc) return await interaction.reply("You are not in a voice channel.");
+        if (!vc) return await interaction.editReply("You are not in a voice channel.");
 
         switch (interaction.options._subcommand) {
             case "alias":
                 break;
             case "endloop":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 audioManager.loop(vc, audioManager.looptypes.off);
 
-                await interaction.reply("Stopped loop");
+                await interaction.editReply("Stopped loop");
 
                 break;
             case "loop":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 audioManager.loop(vc, audioManager.looptypes.loop);
 
                 var playing = (await audioManager.queue(vc))[0].title;
-                await interaction.reply(`Looping "${playing}"`);
+                await interaction.editReply(`Looping "${playing}"`);
 
                 break;
             case "loopqueue":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 audioManager.loop(vc, audioManager.looptypes.off);
 
-                await interaction.reply("Looping queue");
+                await interaction.editReply("Looping queue");
 
                 break;
             case "play":
-                if (!ytdl.validateURL(options.find(x => x.name == "song").value)) return await interaction.reply("The song submitted does not exist.");
+                if (!ytdl.validateURL(options.find(x => x.name == "song").value)) return await interaction.editReply("The song submitted does not exist.");
 
                 var id = ytdl.getVideoID(options.find(x => x.name == "song").value);
 
@@ -145,7 +147,7 @@ module.exports = {
 
                 var audioManager = connections.get(vc) || new discordaudio.AudioManager();
 
-                if (connections.get(vc) && audioManager.queue(vc).find(x => x.url == options.find(x => x.name == "song").value)) return await interaction.reply("The song submitted is already in the queue or is playing.");
+                if (connections.get(vc) && audioManager.queue(vc).find(x => x.url == options.find(x => x.name == "song").value)) return await interaction.editReply("The song submitted is already in the queue or is playing.");
 
                 const manager = await audioManager.play(vc, options.find(x => x.name == "song").value, {
                     autoleave: true,
@@ -156,54 +158,53 @@ module.exports = {
 
                 audioManager.on("end", vc => connections.delete(vc));
 
-                if (!manager) await interaction.reply(`Playing "${songInfo.title}" in :loud_sound: ${client.channels.cache.get(vc.id).name}`);
-                else await interaction.reply(`Added "${songInfo.title}" to queue`);
+                if (!manager) await interaction.editReply(`Playing "${songInfo.title}" in :loud_sound: ${client.channels.cache.get(vc.id).name}`);
+                else await interaction.editReply(`Added "${songInfo.title}" to queue`);
 
                 break;
             case "pause":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 audioManager.pause(vc);
 
                 var playing = (await audioManager.queue(vc))[0].title;
-                await interaction.reply(`Paused "${playing}"`);
+                await interaction.editReply(`Paused "${playing}"`);
 
                 break;
             case "resume":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 audioManager.resume(vc);
 
                 var playing = (await audioManager.queue(vc))[0].title;
-                await interaction.reply(`Resumed "${playing}"`);
+                await interaction.editReply(`Resumed "${playing}"`);
 
                 break;
             case "skip":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 var playing = (await audioManager.queue(vc))[0].title;
 
                 await audioManager.skip(vc);
 
-                await interaction.reply(`Skipped "${playing}"`);
+                await interaction.editReply(`Skipped "${playing}"`);
 
                 break;
             case "stop":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 await audioManager.stop(vc);
-                await interaction.reply("Stopped");
+                await interaction.editReply("Stopped");
 
                 connections.delete(vc);
                 break;
             case "queue":
-                return;
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
                 async function generateEmbed(selection = 0, ended) {
                     const queue = audioManager.queue(vc);
@@ -242,15 +243,13 @@ module.exports = {
                     return { components: [ row ], embeds: [ queueEmbed ] };
                 }
 
-                return interaction.reply(await generateEmbed());
-
-                await interaction.reply(await generateEmbed());
+                await interaction.editReply(await generateEmbed());
 
                 var selection = 0;
 
                 (async function updateEmbed() {
                     try {
-                        const buttonInteraction = (await client.channels.cache.get(interaction.channelId).awaitMessageComponent({ componentType: "BUTTON", time: 10000 }));
+                        const buttonInteraction = (await interaction.channel.awaitMessageComponent({ filter: x => x.message.interaction.id == interaction.id, componentType: "BUTTON", time: 10000 }));
 
                         const btn = buttonInteraction.customId;
 
@@ -273,7 +272,7 @@ module.exports = {
                                 return updateEmbed();
                         }
                     } catch (err) {
-                        await interaction.reply(await generateEmbed(selection, true));
+                        await interaction.editReply(await generateEmbed(selection, true));
                         await interaction.followUp({ components: [ ], content: "Interaction ended due to inactivity", embeds: [ ], ephemeral: true })
                     }
                 })();
@@ -281,8 +280,9 @@ module.exports = {
                 break;
             case "volume":
                 var audioManager = connections.get(vc);
-                if (!audioManager) return await interaction.reply("I'm not playing anything in the voice channel you're in.");
+                if (!audioManager) return await interaction.editReply("I'm not playing anything in the voice channel you're in.");
 
+                interaction.editReply(`Changed volume to :loud_sound: ${options.find(x => x.name == "new").value}`);
                 audioManager.volume(vc, options.find(x => x.name == "new").value);
                 break;
         }
