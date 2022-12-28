@@ -26,7 +26,8 @@ module.exports = {
       .setDescription(`${tte}`)
       .setTimestamp()
       .setFooter({ text: `${ttb}` });
-    interaction.guild.channels.cache.get('1057036681519300618').send({ embeds: [exampleEmbed] })
+    interaction.guild.channels.cache.get('1057036681519300618').send({ content: '<@&1057490792798752838>',embeds: [exampleEmbed] })
+
     interaction.reply("Request received, wait for your request to be accepted or denied.")
 
   }
