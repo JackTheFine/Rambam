@@ -144,6 +144,7 @@ module.exports = {
                 var id = ytdl.getVideoID(options.find(x => x.name == "song").value);
 
                 const songInfo = (await getVideoDetails(id)).info;
+                if (!songInfo) return await interaction.editReply("This video is private or age/region restricted.");
 
                 var audioManager = connections.get(vc) || new discordaudio.AudioManager();
 
@@ -158,7 +159,7 @@ module.exports = {
 
                 audioManager.on("end", vc => connections.delete(vc));
 
-                if (!manager) await interaction.editReply(`Playing "${songInfo.title}" in :loud_sound: ${client.channels.cache.get(vc.id).name}`);
+                if (!manager) await interaction.editReply(`Playing "${songInfo.title}" in :loud_sound: ${client.channels.cache.get(vc.id).name}`) 
                 else await interaction.editReply(`Added "${songInfo.title}" to queue`);
 
                 break;
