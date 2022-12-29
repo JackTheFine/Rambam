@@ -11,12 +11,17 @@ module.exports = {
             subcommand
                 .setName('add')
                 .setDescription('add demerits')
-                .addUserOption(option => option.setName('target').setDescription('The member give a demerit to').setRequired(true)))
+                .addUserOption(option => option.setName('target').setDescription('The member to give a demerit to').setRequired(true)))
+        .addSubcommand(subcommand =>
+            subcommand
+                .setName('remove')
+                .setDescription('remove demerits')
+                .addUserOption(option => option.setName('target').setDescription('The member to remove a demerit from').setRequired(true)))
         .addSubcommand(subcommand =>
             subcommand
                 .setName('check')
                 .setDescription('check demerits')
-                .addUserOption(option => option.setName('target').setDescription('The member give a demerit to').setRequired(true))),
+                .addUserOption(option => option.setName('target').setDescription('The member to check demerits of').setRequired(true))),
     async execute(interaction, client) {
         const tohack = interaction.options.getMember('target');
         const channel = client.channels.cache.get('1056634339875635260');
@@ -27,7 +32,7 @@ module.exports = {
                 else demerits[tohack.user.tag] = { name: tohack.displayName, count: 1 };
 
                 fs.writeFileSync("demerits.json", JSON.stringify(demerits));
-                interaction.reply('Demerit Given')
+                interaction.reply(`Demerit Given to ${tohack.displayName}`)
 
                 const embed = new MessageEmbed()
 
@@ -47,7 +52,23 @@ module.exports = {
                 .setColor('#03fc2c')
                 .setTimestamp()
                 channel.send({ embeds: [embed1] });
-            break;
+                break;
+            case 'remove':
+                if (demerits[tohack.user.tag].count == '0') return interaction.reply(`${tohack.displayName} needs a demerit before being able to remove one!`)
+                if (demerits[tohack.user.tag]) demerits[tohack.user.tag].count--;
+                else return interaction.reply(`${tohack.displayName} doesnt have any demerits.`)
+    
+                fs.writeFileSync("demerits.json", JSON.stringify(demerits));
+                interaction.reply(`Demerit removed from ${tohack.displayName}`)
+
+                const embed2 = new MessageEmbed()
+
+                 .setAuthor({ name: `${interaction.user.tag}` })
+                .setTitle(`removed a demerit from ${tohack.displayName}`)
+                .setColor('#03fc2c')
+                .setTimestamp()
+                channel.send({ embeds: [embed2] });
+                break;
         }
 
     }
