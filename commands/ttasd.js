@@ -30,7 +30,7 @@ await interaction.reply('https://www.youtube.com/watch?v=h1-f9p4kmbg').then(setT
     }
     else {
       const eh = new MessageEmbed()
-      .setAuthor('Discord.Js (NPM V.8.2)')
+      .setAuthor({ name: 'Discord.JS (node V.8.2)' })
       .setTitle('Command not set up.')
       .setDescription('Contact the bot hoster to resolve this issue.')
       interaction.reply({ embeds: [eh]})
