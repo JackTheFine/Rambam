@@ -7,18 +7,16 @@ module.exports = {
     .setDescription('makes your own embed')
     .addStringOption(option => option.setName('title').setDescription('Setting title').setRequired(true))
     .addStringOption(option => option.setName('descripton').setDescription('Setting description').setRequired(true))
-    .addStringOption(option => option.setName('author').setDescription('Setting author').setRequired(true))
-    .addStringOption(option => option.setName('footer').setDescription('Setting footer').setRequired(true)),
+    .addStringOption(option => option.setName('author').setDescription('Setting author').setRequired(true)),
   async execute(interaction, client) {
     const abcd = interaction.options.getString('author');
     const abcde = interaction.options.getString('title');
     const abcdef = interaction.options.getString('descripton');
-    const abcdefg = interaction.options.getString('footer');
     const abc = new MessageEmbed()
       .setAuthor({ name: `${abcd}` })
       .setTitle(`${abcde}`)
       .setDescription(`${abcdef}`)
-      .setFooter({ text: `${abcdefg}` })
+      .setFooter({ text: `Rambam Embedder` })
       .setTimestamp()
     interaction.reply({ content: 'Sent to channel', ephemeral:  true})
     return interaction.channel.send({ embeds: [abc] })
