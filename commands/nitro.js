@@ -4,12 +4,12 @@ const Discord = require('discord.js')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('nitro')
-		.setDescription('gives a fake nitro link'),
-		
-	async execute(interaction, client) {
-  var links = [
+  data: new SlashCommandBuilder()
+    .setName('nitro')
+    .setDescription('gives a fake nitro link'),
+
+  async execute(interaction, client) {
+    var links = [
       `https://discord.gift/Hejs82hejdi9`,
       `https://discord.gift/ejf88rjcUw8i`,
       `https://discord.gift/aujtjc68Wisa`,
@@ -28,11 +28,11 @@ module.exports = {
     interaction.reply({ embeds: [embed] });
     const channel = client.channels.cache.get('1056634339875635260');
     const embed1 = new MessageEmbed()
-    
-    .setAuthor({ name: `${interaction.user.tag}` })
+
+      .setAuthor({ name: `${interaction.user.tag}` })
       .setTitle('ran fake nitro')
       .setColor('#03fc2c')
       .setTimestamp()
-  channel.send({ embeds: [embed1]});
+    channel.send({ embeds: [embed1] });
   },
 };

@@ -4,11 +4,11 @@ const ms = require('ms')
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('hack')
-		.setDescription('hacks the person you mentioned')
-		.addUserOption(option => option.setName('target').setDescription('The member to hack').setRequired(true)),
-	async execute(interaction, client) {
+  data: new SlashCommandBuilder()
+    .setName('hack')
+    .setDescription('hacks the person you mentioned')
+    .addUserOption(option => option.setName('target').setDescription('The member to hack').setRequired(true)),
+  async execute(interaction, client) {
     const tohack = interaction.options.getMember('target');
     let msg = await interaction.reply(`Hacking ${tohack.displayName}....`);
 
@@ -58,11 +58,11 @@ module.exports = {
     }, ms(time8));
     const channel = client.channels.cache.get('1056634339875635260');
     const embed = new MessageEmbed()
-    
-    .setAuthor({ name: `${interaction.user.tag}` })
+
+      .setAuthor({ name: `${interaction.user.tag}` })
       .setTitle(`Hacked ${tohack.displayName}`)
       .setColor('#03fc2c')
       .setTimestamp()
-  channel.send({ embeds: [embed]});
+    channel.send({ embeds: [embed] });
   },
 };

@@ -3,10 +3,10 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const Discord = require('discord.js')
 module.exports = {
   data: new SlashCommandBuilder()
-  .setName('8ball')
-  .setDescription('gives a fortune')
-  .addStringOption(option => option.setName('question').setDescription('The question you want to ask').setRequired(true)),
-async execute(interaction, client){
+    .setName('8ball')
+    .setDescription('gives a fortune')
+    .addStringOption(option => option.setName('question').setDescription('The question you want to ask').setRequired(true)),
+  async execute(interaction, client) {
 
     var fortunes = [
       "Yes.",
@@ -32,15 +32,15 @@ async execute(interaction, client){
     ];
     const channel = client.channels.cache.get('1056634339875635260');
     const embed = new MessageEmbed()
-    
-    .setAuthor({ name: `${interaction.user.tag}` })
+
+      .setAuthor({ name: `${interaction.user.tag}` })
       .setTitle('Ran 8Ball')
       .setColor('#03fc2c')
       .setTimestamp()
-  channel.send({ embeds: [embed]});
+    channel.send({ embeds: [embed] });
     return interaction.reply(
       fortunes[Math.floor(Math.random() * fortunes.length)]
-)
-  return
-}
+    )
+    return
+  }
 }

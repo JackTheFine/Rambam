@@ -1,5 +1,5 @@
 const Discord = module.require("discord.js");
-const { MessageEmbed }  = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
@@ -27,12 +27,12 @@ module.exports = {
     })
     const channel = client.channels.cache.get('1056634339875635260');
     const embed = new MessageEmbed()
-    
-    .setAuthor({ name: `${interaction.user.tag}` })
+
+      .setAuthor({ name: `${interaction.user.tag}` })
       .setTitle(`Ran suggest and suggested ${tte}`)
       .setColor('#03fc2c')
       .setTimestamp()
-  channel.send({ embeds: [embed]});
+    channel.send({ embeds: [embed] });
     return interaction.reply('Sent to suggestions.')
 
   }

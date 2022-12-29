@@ -1,5 +1,5 @@
 const Discord = module.require("discord.js");
-const { MessageEmbed }  = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
@@ -22,11 +22,11 @@ module.exports = {
       .setColor('#0099ff')
       .setTitle('Whitelist request')
       .setURL('')
-      .setAuthor({ name: `${ttb}`})
+      .setAuthor({ name: `${ttb}` })
       .setDescription(`${tte}`)
       .setTimestamp()
       .setFooter({ text: `${ttb}` });
-    interaction.guild.channels.cache.get('1057036681519300618').send({ content: '<@&1057490792798752838>',embeds: [exampleEmbed] })
+    interaction.guild.channels.cache.get('1057036681519300618').send({ content: '<@&1057490792798752838>', embeds: [exampleEmbed] })
 
     interaction.reply("Request received, wait for your request to be accepted or denied.")
 

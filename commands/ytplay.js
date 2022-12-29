@@ -19,9 +19,9 @@ async function getVideoDetails(id, cookie) {
             return { success: false, e };
         }
     }
-    
+
     var hd;
-    try { hd = videoInfo.formats.find(x => x.itag == 22).url; } catch (e) {}
+    try { hd = videoInfo.formats.find(x => x.itag == 22).url; } catch (e) { }
     var sd = videoInfo.formats.find(x => x.itag == 18).url;
     var audio = videoInfo.formats.find(x => x.itag == 140).url;
     var formats = { hd, sd, audio };
@@ -32,59 +32,59 @@ async function getVideoDetails(id, cookie) {
 const connections = new Map();
 
 module.exports = {
-	data: new SlashCommandBuilder()
+    data: new SlashCommandBuilder()
         .setName("ytstream")
         .setDescription("Enter a YouTube video link (not id) to stream it to an audio channel!")
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("endloop")
-			    .setDescription("Stop the loop, if there is one (whether song or queue)")
-	    )
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("loop")
-			    .setDescription("Loop the song that is now playing")
-	    )
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("loopqueue")
-			    .setDescription("Loop the current queue (queue is still editable during loop)")
-	    )
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("play")
-			    .setDescription("Stream a song to the voice channel you are in")
-			    .addStringOption(option =>
-    				option.setName("song")
-					    .setDescription("The YouTube Music URL (full, not just the id) of the song you want to stream.")
-					    .setRequired(true)
-			    )
-	    )
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("pause")
-			    .setDescription("Pause the song currently playing")
-	    )
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("resume")
-			    .setDescription("Resume a paused song")
-	    )
-	    /*.addSubcommand(subcommand =>
-    		subcommand.setName("skip")
-			    .setDescription("Advance to the next song in the queue")
-	    )*/
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("stop")
-			    .setDescription("Cease. Desisit. Halt.")
-	    )
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("queue")
-			    .setDescription("View all songs in the queue")
-	    )
-	    .addSubcommand(subcommand =>
-    		subcommand.setName("volume")
-			    .setDescription("View or change the volume in your current voice channel")
-			    .addNumberOption(option =>
-    				option.setName("new")
+        .addSubcommand(subcommand =>
+            subcommand.setName("endloop")
+                .setDescription("Stop the loop, if there is one (whether song or queue)")
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName("loop")
+                .setDescription("Loop the song that is now playing")
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName("loopqueue")
+                .setDescription("Loop the current queue (queue is still editable during loop)")
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName("play")
+                .setDescription("Stream a song to the voice channel you are in")
+                .addStringOption(option =>
+                    option.setName("song")
+                        .setDescription("The YouTube Music URL (full, not just the id) of the song you want to stream.")
+                        .setRequired(true)
+                )
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName("pause")
+                .setDescription("Pause the song currently playing")
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName("resume")
+                .setDescription("Resume a paused song")
+        )
+        /*.addSubcommand(subcommand =>
+            subcommand.setName("skip")
+                .setDescription("Advance to the next song in the queue")
+        )*/
+        .addSubcommand(subcommand =>
+            subcommand.setName("stop")
+                .setDescription("Cease. Desisit. Halt.")
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName("queue")
+                .setDescription("View all songs in the queue")
+        )
+        .addSubcommand(subcommand =>
+            subcommand.setName("volume")
+                .setDescription("View or change the volume in your current voice channel")
+                .addNumberOption(option =>
+                    option.setName("new")
                         .setDescription("The new volume")
-					    .setMinValue(1)
-					    .setMaxValue(10)
-					    .addChoices(
+                        .setMinValue(1)
+                        .setMaxValue(10)
+                        .addChoices(
                             { name: "1", value: 1 },
                             { name: "2", value: 2 },
                             { name: "3", value: 3 },
@@ -95,12 +95,12 @@ module.exports = {
                             { name: "8", value: 8 },
                             { name: "9", value: 9 },
                             { name: "10", value: 10 }
-					    )
-					    .setRequired(true)
-			    )
-	    ),
-		
-	async execute(interaction, client, options) {
+                        )
+                        .setRequired(true)
+                )
+        ),
+
+    async execute(interaction, client, options) {
         await interaction.deferReply({ ephemeral: true });
 
         const vc = interaction.member.voice.channel;
@@ -159,7 +159,7 @@ module.exports = {
 
                 audioManager.on("end", vc => connections.delete(vc));
 
-                if (!manager) await interaction.editReply(`Playing "${songInfo.title}" in :loud_sound: ${client.channels.cache.get(vc.id).name}`) 
+                if (!manager) await interaction.editReply(`Playing "${songInfo.title}" in :loud_sound: ${client.channels.cache.get(vc.id).name}`)
                 else await interaction.editReply(`Added "${songInfo.title}" to queue`);
 
                 break;
@@ -214,7 +214,7 @@ module.exports = {
                         .setTitle("Queue");
 
                     var description = "";
-                    queue.forEach((x, i) => description += `${(i == selection) ? "**" : ""}${i + 1}${(i == selection) ? "**" : ""} - [${x.title}](${x.url})${i == 0 ? " - Now Playing" : ""}\n` );
+                    queue.forEach((x, i) => description += `${(i == selection) ? "**" : ""}${i + 1}${(i == selection) ? "**" : ""} - [${x.title}](${x.url})${i == 0 ? " - Now Playing" : ""}\n`);
                     queueEmbed.setDescription(description);
 
                     const row = new MessageActionRow()
@@ -241,7 +241,7 @@ module.exports = {
                                 .setDisabled(ended || false),
                         )
 
-                    return { components: [ row ], embeds: [ queueEmbed ] };
+                    return { components: [row], embeds: [queueEmbed] };
                 }
 
                 await interaction.editReply(await generateEmbed());
@@ -274,7 +274,7 @@ module.exports = {
                         }
                     } catch (err) {
                         await interaction.editReply(await generateEmbed(selection, true));
-                        await interaction.followUp({ components: [ ], content: "Interaction ended due to inactivity", embeds: [ ], ephemeral: true })
+                        await interaction.followUp({ components: [], content: "Interaction ended due to inactivity", embeds: [], ephemeral: true })
                     }
                 })();
 
