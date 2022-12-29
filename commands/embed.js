@@ -20,7 +20,7 @@ module.exports = {
       .setDescription(`${abcdef}`)
       .setFooter({ text: `${abcdefg}` })
       .setTimestamp()
-
-    return interaction.reply({ embeds: [abc] })
+    interaction.reply({ content: 'Sent to channel', ephemeral:  true})
+    return interaction.channel.send({ embeds: [abc] })
   }
 }
