@@ -30,7 +30,7 @@ module.exports = {
     }
     else {
       const eh = new MessageEmbed()
-        .setAuthor({ name: 'Discord.JS (node V.8.2)' })
+        .setAuthor({ name: 'discord.js (Node v19.3.0)' })
         .setTitle('Command not set up.')
         .setDescription('Contact the bot hoster to resolve this issue.')
       interaction.reply({ embeds: [eh] })
