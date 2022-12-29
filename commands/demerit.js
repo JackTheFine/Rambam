@@ -38,7 +38,7 @@ module.exports = {
                 channel.send({ embeds: [embed] });
                 break;
             case 'check':
-                interaction.reply(`${tohack.displayName} has ${demerits[tohack.user.tag].count} demerit${demerits[tohack.user.tag].count != 1 ? "s" : ""}!`);
+                interaction.reply(demerits[tohack.user.tag] ? `${tohack.displayName} has ${demerits[tohack.user.tag].count} demerit${demerits[tohack.user.tag].count != 1 ? "s" : ""}!` : "This user has no demerits.");
 
                 const embed1 = new MessageEmbed()
 
