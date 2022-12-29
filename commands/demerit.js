@@ -23,7 +23,9 @@ module.exports = {
         const demerits = JSON.parse(fs.readFileSync("demerits.json", "utf-8") || "");
         switch (interaction.options._subcommand) {
             case 'add':
-                demerits.push(tohack.displayName);
+                if (demerits[tohack.user.tag]) demerits[tohack.user.tag].count++;
+                else demerits[tohack.user.tag] = { name: tohack.displayName, count: 1 };
+
                 fs.writeFileSync("demerits.json", JSON.stringify(demerits));
                 interaction.reply('Demerit Given')
 
@@ -36,7 +38,8 @@ module.exports = {
                 channel.send({ embeds: [embed] });
                 break;
             case 'check':
-                interaction.reply('Not setup if u want it to be ping @ari and @shmuli morgenstern')
+                interaction.reply(`${tohack.displayName} has ${demerits[tohack.user.tag].count} demerit${demerits[tohack.user.tag].count != 1 ? "s" : ""}!`);
+
                 const embed1 = new MessageEmbed()
 
                  .setAuthor({ name: `${interaction.user.tag}` })
