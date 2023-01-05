@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { Client, Collection, Intents } = require('discord.js');
 const { token } = require('./config.json');
-const { MessageEmbed } = require('Discord.js')
+const { MessageEmbed } = require('discord.js')
 require("./deploy-commands")
 
 
